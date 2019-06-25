@@ -141,52 +141,38 @@ func (b *Balance) MarshalBinaryTo(text []byte) error {
 
 //ExtensionType implements Extension.UnmarshalBinary interface
 func (b *Balance) UnmarshalBinary(text []byte) error {
-	if b.Int != nil {
-		b.Int = nil
-	}
-	b.Int = new(big.Int).SetBytes(text)
-	return nil
-}
+	i := new(big.Int)
+	i.SetBytes(text)
+	*b = Balance{i}
 
-func (b Balance) String() string {
-	if b.Int == nil {
-		return big.NewInt(0).String()
-	} else {
-		return b.Int.String()
-	}
+	return nil
 }
 
 // MarshalText implements the encoding.TextMarshaler interface.
 func (b Balance) MarshalText() ([]byte, error) {
-	s := fmt.Sprintf(`"%s"`, b.String())
-	return []byte(s), nil
+	return []byte(b.String()), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
 func (b *Balance) UnmarshalText(text []byte) error {
 	s := util.TrimQuotes(string(text))
-	v, err := strconv.ParseInt(s, 10, 64)
+	_, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
 		return err
 	}
-	if b.Int != nil {
-		b.Int = nil
-	}
-	b.Int = new(big.Int).SetInt64(v)
-
+	balance := StringToBalance(s)
+	*b = balance
 	return nil
 }
 
-//MarshalJSON implements the json.Marshaler interface.
+// MarshalJSON implements the json.Marshaler interface.
 func (b *Balance) MarshalJSON() ([]byte, error) {
 	s := ""
 
-	if b == nil || b.Int == nil {
-		s = ZeroBalance.String()
-		//s = fmt.Sprintf("\"%s\"", ZeroBalance)
+	if b.Int == nil {
+		s = fmt.Sprintf("\"%s\"", ZeroBalance)
 	} else {
-		//s = fmt.Sprintf("\"%s\"", b.String())
-		s = b.String()
+		s = fmt.Sprintf("\"%s\"", b.String())
 	}
 	return []byte(s), nil
 }
@@ -197,6 +183,6 @@ func (b *Balance) UnmarshalJSON(text []byte) error {
 }
 
 // IsZero check balance is zero
-func (b Balance) IsZero() bool {
+func (b *Balance) IsZero() bool {
 	return b.Equal(ZeroBalance)
 }
