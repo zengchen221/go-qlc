@@ -468,39 +468,39 @@ func TestLedgerAPI_Accounts(t *testing.T) {
 	}
 }
 
-func TestLedgerAPI_BlocksCount(t *testing.T) {
-	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
-	defer teardownTestCase(t)
+//func TestLedgerAPI_BlocksCount(t *testing.T) {
+//	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
+//	defer teardownTestCase(t)
+//
+//	l.On("BlocksCount").Return(uint64(10), nil)
+//	l.On("CountSmartContractBlocks").Return(uint64(5), nil)
+//	l.On("CountUncheckedBlocksStore").Return(uint64(1), nil)
+//
+//	c, err := ledgerApi.BlocksCount()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if c["count"] != 15 || c["unchecked"] != 1 {
+//		t.Fatal()
+//	}
+//}
 
-	l.On("BlocksCount").Return(uint64(10), nil)
-	l.On("CountSmartContractBlocks").Return(uint64(5), nil)
-	l.On("CountUncheckedBlocksStore").Return(uint64(1), nil)
-
-	c, err := ledgerApi.BlocksCount()
-	if err != nil {
-		t.Fatal(err)
-	}
-	if c["count"] != 15 || c["unchecked"] != 1 {
-		t.Fatal()
-	}
-}
-
-func TestLedgerAPI_BlocksCount2(t *testing.T) {
-	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
-	defer teardownTestCase(t)
-
-	l.On("CountStateBlocks").Return(uint64(10), nil)
-	l.On("CountSmartContractBlocks").Return(uint64(5), nil)
-	l.On("CountUncheckedBlocks").Return(uint64(1), nil)
-
-	c, err := ledgerApi.BlocksCount2()
-	if err != nil {
-		t.Fatal(err)
-	}
-	if c["count"] != 15 || c["unchecked"] != 1 {
-		t.Fatal()
-	}
-}
+//func TestLedgerAPI_BlocksCount2(t *testing.T) {
+//	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
+//	defer teardownTestCase(t)
+//
+//	l.On("CountStateBlocks").Return(uint64(10), nil)
+//	l.On("CountSmartContractBlocks").Return(uint64(5), nil)
+//	l.On("CountUncheckedBlocks").Return(uint64(1), nil)
+//
+//	c, err := ledgerApi.BlocksCount2()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if c["count"] != 15 || c["unchecked"] != 1 {
+//		t.Fatal()
+//	}
+//}
 
 func TestLedgerAPI_BlockAccount(t *testing.T) {
 	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)

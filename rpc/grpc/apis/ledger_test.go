@@ -81,6 +81,7 @@ func setupMockLedgerAPI(t *testing.T) (func(t *testing.T), *mocks.Store, *Ledger
 
 	l := new(mocks.Store)
 	ledgerApi := NewLedgerApi(context.Background(), l, cc.EventBus(), cc)
+	fmt.Println("case: ", t.Name())
 	return func(t *testing.T) {
 		if err := os.RemoveAll(dir); err != nil {
 			t.Fatal(err)
@@ -153,7 +154,7 @@ func TestLedgerAPI_AccountHistoryTopn(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(r.GetBlocks()) != 4 {
-		t.Fatal()
+		t.Fatal(r.GetBlocks())
 	}
 }
 
