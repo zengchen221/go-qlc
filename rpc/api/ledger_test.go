@@ -285,34 +285,34 @@ func TestLedgerAPI_AccountInfo(t *testing.T) {
 	}
 }
 
-//func TestLedgerAPI_ConfirmedAccountInfo(t *testing.T) {
-//	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
-//	defer teardownTestCase(t)
-//	r, err := ledgerApi.ConfirmedAccountInfo(account1.Address())
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//	if r.Address != account1.Address() {
-//		t.Fatal()
-//	}
-//}
-//
-//func TestLedgerAPI_AccountRepresentative(t *testing.T) {
-//	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
-//	defer teardownTestCase(t)
-//	r, err := ledgerApi.AccountRepresentative(account1.Address())
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//	if r != account1.Address() {
-//		t.Fatal()
-//	}
-//	r, err = ledgerApi.AccountRepresentative(mock.Address())
-//	if err == nil {
-//		t.Fatal(err)
-//	}
-//}
-//
+func TestLedgerAPI_ConfirmedAccountInfo(t *testing.T) {
+	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
+	defer teardownTestCase(t)
+	r, err := ledgerApi.ConfirmedAccountInfo(account1.Address())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Address != account1.Address() {
+		t.Fatal()
+	}
+}
+
+func TestLedgerAPI_AccountRepresentative(t *testing.T) {
+	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
+	defer teardownTestCase(t)
+	r, err := ledgerApi.AccountRepresentative(account1.Address())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r != account1.Address() {
+		t.Fatal()
+	}
+	r, err = ledgerApi.AccountRepresentative(mock.Address())
+	if err == nil {
+		t.Fatal(err)
+	}
+}
+
 //func TestLedgerAPI_AccountVotingWeight(t *testing.T) {
 //	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
 //	defer teardownTestCase(t)
