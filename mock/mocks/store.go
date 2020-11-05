@@ -1590,6 +1590,20 @@ func (_m *Store) Flush() error {
 	return r0
 }
 
+// FlushU provides a mock function with given fields:
+func (_m *Store) FlushU() error {
+	ret := _m.Called()
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func() error); ok {
+		r0 = rf()
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // GenerateChangeBlock provides a mock function with given fields: account, representative, prk
 func (_m *Store) GenerateChangeBlock(account types.Address, representative types.Address, prk ed25519.PrivateKey) (*types.StateBlock, error) {
 	ret := _m.Called(account, representative, prk)

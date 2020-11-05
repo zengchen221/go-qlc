@@ -47,6 +47,7 @@ type LedgerStore interface {
 	GetRelation(dest interface{}, query string) error
 	SelectRelation(dest interface{}, query string) error
 	Flush() error
+	FlushU() error
 	BlockConfirmed(blk *types.StateBlock)
 }
 
@@ -778,10 +779,13 @@ func (l *Ledger) updateCacheStat(c *CacheStat, typ cacheType) {
 func (l *Ledger) Flush() error {
 	lock.Lock()
 	defer lock.Unlock()
-	if err := l.unCheckCache.rebuild(); err != nil {
-		return err
-	}
 	return l.cache.rebuild()
+}
+
+func (l *Ledger) FlushU() error {
+	lock.Lock()
+	defer lock.Unlock()
+	return l.unCheckCache.rebuild()
 }
 
 func (l *Ledger) BlockConfirmed(blk *types.StateBlock) {

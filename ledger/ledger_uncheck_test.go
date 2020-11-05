@@ -149,7 +149,7 @@ func TestLedger_AddGapPovBlock(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if err := l.Flush(); err != nil {
+	if err := l.FlushU(); err != nil {
 		t.Fatal(err)
 	}
 
@@ -239,7 +239,7 @@ func TestLedger_WalkGapPovBlocks(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := l.Flush(); err != nil {
+	if err := l.FlushU(); err != nil {
 		t.Fatal(err)
 	}
 
@@ -287,7 +287,7 @@ func TestLedger_AddGapPublishBlock(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := l.Flush(); err != nil {
+	if err := l.FlushU(); err != nil {
 		t.Fatal(err)
 	}
 
@@ -326,7 +326,7 @@ func TestLedger_DeleteGapPublishBlock(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := l.Flush(); err != nil {
+	if err := l.FlushU(); err != nil {
 		t.Fatal(err)
 	}
 
@@ -354,7 +354,7 @@ func TestLedger_DeleteGapPublishBlock(t *testing.T) {
 		}
 		return nil
 	})
-	if err := l.Flush(); err != nil {
+	if err := l.FlushU(); err != nil {
 		t.Fatal(err)
 	}
 
@@ -387,7 +387,7 @@ func TestLedger_GetGapPublishBlock(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := l.Flush(); err != nil {
+	if err := l.FlushU(); err != nil {
 		t.Fatal(err)
 	}
 
