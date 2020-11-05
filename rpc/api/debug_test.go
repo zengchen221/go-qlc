@@ -64,26 +64,26 @@ func setupMockDebugAPI(t *testing.T) (func(t *testing.T), *mocks.Store, *DebugAp
 	}, l, debugApi
 }
 
-func TestDebugApi_BlockCaches(t *testing.T) {
-	teardownTestCase, l, debugApi := setupDefaultDebugAPI(t)
-	defer teardownTestCase(t)
-
-	if err := l.AddBlockCache(mock.StateBlockWithoutWork()); err != nil {
-		t.Fatal(err)
-	}
-	if err := l.AddBlockCache(mock.StateBlockWithoutWork()); err != nil {
-		t.Fatal(err)
-	}
-	if err := l.AddBlockCache(mock.StateBlockWithoutWork()); err != nil {
-		t.Fatal(err)
-	}
-	if r, err := debugApi.BlockCacheCount(); r["blockCache"] != 3 || err != nil {
-		t.Fatal(err, r)
-	}
-	if r, err := debugApi.BlockCaches(); len(r) != 3 || err != nil {
-		t.Fatal(err, r)
-	}
-}
+//func TestDebugApi_BlockCaches(t *testing.T) {
+//	teardownTestCase, l, debugApi := setupDefaultDebugAPI(t)
+//	defer teardownTestCase(t)
+//
+//	if err := l.AddBlockCache(mock.StateBlockWithoutWork()); err != nil {
+//		t.Fatal(err)
+//	}
+//	if err := l.AddBlockCache(mock.StateBlockWithoutWork()); err != nil {
+//		t.Fatal(err)
+//	}
+//	if err := l.AddBlockCache(mock.StateBlockWithoutWork()); err != nil {
+//		t.Fatal(err)
+//	}
+//	if r, err := debugApi.BlockCacheCount(); r["blockCache"] != 3 || err != nil {
+//		t.Fatal(err, r)
+//	}
+//	if r, err := debugApi.BlockCaches(); len(r) != 3 || err != nil {
+//		t.Fatal(err, r)
+//	}
+//}
 
 func TestDebugApi_Action(t *testing.T) {
 	teardownTestCase, l, debugApi := setupMockDebugAPI(t)
