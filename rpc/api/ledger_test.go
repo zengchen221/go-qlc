@@ -313,73 +313,73 @@ func TestLedgerAPI_AccountRepresentative(t *testing.T) {
 	}
 }
 
-//func TestLedgerAPI_AccountVotingWeight(t *testing.T) {
-//	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
-//	defer teardownTestCase(t)
-//
-//	addr1 := mock.Address()
-//	addr2 := mock.Address()
-//	addr3 := mock.Address()
-//	balance := types.Balance{Int: big.NewInt(int64(100000000000))}
-//
-//	l.On("GetRepresentation", addr1).Return(&types.Benefit{
-//		Balance: balance,
-//		Total:   balance,
-//	}, nil)
-//	l.On("GetRepresentation", addr2).Return(types.ZeroBenefit, ledger.ErrRepresentationNotFound)
-//	l.On("GetRepresentation", addr3).Return(nil, errors.New("nil pointer"))
-//	tests := []struct {
-//		name       string
-//		arg        types.Address
-//		wantReturn types.Balance
-//		wantErr    bool
-//	}{
-//		{
-//			name:       "f1",
-//			arg:        addr1,
-//			wantReturn: balance,
-//			wantErr:    false,
-//		},
-//		{
-//			name:       "f2",
-//			arg:        addr2,
-//			wantReturn: types.ZeroBalance,
-//			wantErr:    false,
-//		},
-//		{
-//			name:       "f3",
-//			arg:        addr3,
-//			wantReturn: types.ZeroBalance,
-//			wantErr:    true,
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			r, err := ledgerApi.AccountVotingWeight(tt.arg)
-//			if (err != nil) != tt.wantErr {
-//				t.Errorf("AccountVotingWeight() error = %v, wantErr %v", err, tt.wantErr)
-//				return
-//			}
-//			if !r.Equal(tt.wantReturn) {
-//				t.Errorf("AccountVotingWeight() value = %v, want %v", r, tt.wantReturn)
-//			}
-//		})
-//	}
-//}
-//
-//func TestLedgerAPI_AccountsBalance(t *testing.T) {
-//	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
-//	defer teardownTestCase(t)
-//	addrs := []types.Address{account1.Address(), account2.Address()}
-//	r, err := ledgerApi.AccountsBalance(addrs)
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//	if len(r) != 2 {
-//		t.Fatal()
-//	}
-//}
-//
+func TestLedgerAPI_AccountVotingWeight(t *testing.T) {
+	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
+	defer teardownTestCase(t)
+
+	addr1 := mock.Address()
+	addr2 := mock.Address()
+	addr3 := mock.Address()
+	balance := types.Balance{Int: big.NewInt(int64(100000000000))}
+
+	l.On("GetRepresentation", addr1).Return(&types.Benefit{
+		Balance: balance,
+		Total:   balance,
+	}, nil)
+	l.On("GetRepresentation", addr2).Return(types.ZeroBenefit, ledger.ErrRepresentationNotFound)
+	l.On("GetRepresentation", addr3).Return(nil, errors.New("nil pointer"))
+	tests := []struct {
+		name       string
+		arg        types.Address
+		wantReturn types.Balance
+		wantErr    bool
+	}{
+		{
+			name:       "f1",
+			arg:        addr1,
+			wantReturn: balance,
+			wantErr:    false,
+		},
+		{
+			name:       "f2",
+			arg:        addr2,
+			wantReturn: types.ZeroBalance,
+			wantErr:    false,
+		},
+		{
+			name:       "f3",
+			arg:        addr3,
+			wantReturn: types.ZeroBalance,
+			wantErr:    true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r, err := ledgerApi.AccountVotingWeight(tt.arg)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("AccountVotingWeight() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !r.Equal(tt.wantReturn) {
+				t.Errorf("AccountVotingWeight() value = %v, want %v", r, tt.wantReturn)
+			}
+		})
+	}
+}
+
+func TestLedgerAPI_AccountsBalance(t *testing.T) {
+	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
+	defer teardownTestCase(t)
+	addrs := []types.Address{account1.Address(), account2.Address()}
+	r, err := ledgerApi.AccountsBalance(addrs)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(r) != 2 {
+		t.Fatal()
+	}
+}
+
 //func TestLedgerAPI_AccountsFrontiers(t *testing.T) {
 //	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
 //	defer teardownTestCase(t)
