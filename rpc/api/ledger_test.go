@@ -453,18 +453,18 @@ func TestLedgerAPI_AccountsCount(t *testing.T) {
 	}
 }
 
-//func TestLedgerAPI_Accounts(t *testing.T) {
-//	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
-//	defer teardownTestCase(t)
-//	r, err := ledgerApi.Accounts(10, nil)
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//	t.Log(r)
-//	if len(r) != 5 {
-//		t.Fatalf("invalid len %d", len(r))
-//	}
-//}
+func TestLedgerAPI_Accounts(t *testing.T) {
+	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
+	defer teardownTestCase(t)
+	r, err := ledgerApi.Accounts(10, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(r)
+	if len(r) != 5 {
+		t.Fatalf("invalid len %d", len(r))
+	}
+}
 
 //func TestLedgerAPI_BlocksCount(t *testing.T) {
 //	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
