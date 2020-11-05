@@ -393,78 +393,78 @@ func TestLedgerAPI_AccountsFrontiers(t *testing.T) {
 	}
 }
 
-func TestLedgerAPI_AccountsPending(t *testing.T) {
-	teardownTestCase, l, ledgerApi := setupDefaultLedgerAPI(t)
+//func TestLedgerAPI_AccountsPending(t *testing.T) {
+//	teardownTestCase, l, ledgerApi := setupDefaultLedgerAPI(t)
+//	defer teardownTestCase(t)
+//
+//	blk := mock.StateBlockWithoutWork()
+//
+//	sAdd := mock.Address()
+//	pendingKey := &types.PendingKey{
+//		Address: sAdd,
+//		Hash:    blk.GetHash(),
+//	}
+//	pendingInfo := &types.PendingInfo{
+//		Source: blk.Address,
+//		Type:   config.ChainToken(),
+//		Amount: types.Balance{Int: big.NewInt(int64(100000000000))},
+//	}
+//	if err := l.AddPending(pendingKey, pendingInfo, l.Cache().GetCache()); err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	if err := l.AddStateBlock(blk); err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	if err := l.Flush(); err != nil {
+//		t.Fatal(err)
+//	}
+//	r, err := ledgerApi.AccountsPending([]types.Address{sAdd}, 10)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if len(r) != 1 {
+//		t.Fatal(len(r))
+//	}
+//
+//	ps, err := ledgerApi.Pendings()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if len(ps) != 1 {
+//		t.Fatal(len(r))
+//	}
+//
+//}
+
+func TestLedgerAPI_AccountsCount(t *testing.T) {
+	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
 	defer teardownTestCase(t)
 
-	blk := mock.StateBlockWithoutWork()
-
-	sAdd := mock.Address()
-	pendingKey := &types.PendingKey{
-		Address: sAdd,
-		Hash:    blk.GetHash(),
-	}
-	pendingInfo := &types.PendingInfo{
-		Source: blk.Address,
-		Type:   config.ChainToken(),
-		Amount: types.Balance{Int: big.NewInt(int64(100000000000))},
-	}
-	if err := l.AddPending(pendingKey, pendingInfo, l.Cache().GetCache()); err != nil {
-		t.Fatal(err)
-	}
-
-	if err := l.AddStateBlock(blk); err != nil {
-		t.Fatal(err)
-	}
-
-	if err := l.Flush(); err != nil {
-		t.Fatal(err)
-	}
-	r, err := ledgerApi.AccountsPending([]types.Address{sAdd}, 10)
+	expect := uint64(10)
+	l.On("CountAccountMetas").Return(expect, nil)
+	r, err := ledgerApi.AccountsCount()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(r) != 1 {
-		t.Fatal(len(r))
-	}
-
-	ps, err := ledgerApi.Pendings()
-	if err != nil {
+	if r != expect {
 		t.Fatal(err)
 	}
-	if len(ps) != 1 {
-		t.Fatal(len(r))
-	}
-
 }
 
-//func TestLedgerAPI_AccountsCount(t *testing.T) {
-//	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)
-//	defer teardownTestCase(t)
-//
-//	expect := uint64(10)
-//	l.On("CountAccountMetas").Return(expect, nil)
-//	r, err := ledgerApi.AccountsCount()
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//	if r != expect {
-//		t.Fatal(err)
-//	}
-//}
-//
-//func TestLedgerAPI_Accounts(t *testing.T) {
-//	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
-//	defer teardownTestCase(t)
-//	r, err := ledgerApi.Accounts(10, nil)
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//	t.Log(r)
-//	if len(r) != 5 {
-//		t.Fatalf("invalid len %d", len(r))
-//	}
-//}
+func TestLedgerAPI_Accounts(t *testing.T) {
+	teardownTestCase, _, ledgerApi := setupDefaultLedgerAPI(t)
+	defer teardownTestCase(t)
+	r, err := ledgerApi.Accounts(10, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(r)
+	if len(r) != 5 {
+		t.Fatalf("invalid len %d", len(r))
+	}
+}
 
 //func TestLedgerAPI_BlocksCount(t *testing.T) {
 //	teardownTestCase, l, ledgerApi := setupMockLedgerAPI(t)

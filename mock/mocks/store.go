@@ -2185,7 +2185,7 @@ func (_m *Store) GetGapDoDSettleStateBlock(key types.Hash, visit types.GapDoDSet
 }
 
 // GetGapPublishBlocks provides a mock function with given fields: key, visit
-func (_m *Store) GetGapPublishBlocks(key types.Hash, visit types.GapPublishBlockWalkFunc) error {
+func (_m *Store) GetGapPublishBlock(key types.Hash, visit types.GapPublishBlockWalkFunc) error {
 	ret := _m.Called(key, visit)
 
 	var r0 error
