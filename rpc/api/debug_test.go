@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -29,6 +30,7 @@ func setupDefaultDebugAPI(t *testing.T) (func(t *testing.T), *ledger.Ledger, *De
 	cc := qlcchainctx.NewChainContext(cm.ConfigFile)
 	eb := cc.EventBus()
 	debugApi := NewDebugApi(cm.ConfigFile, eb)
+	fmt.Println("debug case: ", t.Name())
 
 	return func(t *testing.T) {
 		err := l.Close()
@@ -54,6 +56,7 @@ func setupMockDebugAPI(t *testing.T) (func(t *testing.T), *mocks.Store, *DebugAp
 	l := new(mocks.Store)
 	debugApi := NewDebugApi(cm.ConfigFile, cc.EventBus())
 	debugApi.ledger = l
+	fmt.Println("debug case: ", t.Name())
 	return func(t *testing.T) {
 		if err := os.RemoveAll(dir); err != nil {
 			t.Fatal(err)
@@ -311,6 +314,10 @@ func TestDebugApi_UncheckBlock(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	if err := l.FlushU(); err != nil {
+		t.Fatal(err)
+	}
+
 	uis, err := debugApi.UncheckBlock(blk1.GetHash())
 	if err != nil || len(uis) == 0 {
 		t.Fatal(err)
@@ -381,6 +388,10 @@ func TestDebugApi_UncheckBlocks(t *testing.T) {
 
 	err = l.AddGapPovBlock(100, blk2, types.UnSynchronized)
 	if err != nil {
+		t.Fatal(err)
+	}
+
+	if err := l.FlushU(); err != nil {
 		t.Fatal(err)
 	}
 
